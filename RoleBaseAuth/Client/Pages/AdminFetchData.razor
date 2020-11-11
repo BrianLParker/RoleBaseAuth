@@ -1,0 +1,63 @@
+@page "/adminfetchdata"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using RoleBaseAuth.Shared
+@attribute [Authorize]
+@inject HttpClient Http
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server. You must be Authorized to see the page. However only Administrators can access the API.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<div class="text-danger">
+    @message
+</div>
+@code {
+    private WeatherForecast[] forecasts;
+    string message;
+    protected override async Task OnInitializedAsync()
+    {
+        this.message = "";
+        try
+        {
+            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("AdminWeatherForecast");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+        catch (Exception e)
+        {
+            this.message = e.Message;
+        }
+    }
+
+}

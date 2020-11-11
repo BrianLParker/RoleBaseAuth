@@ -3,6 +3,7 @@ namespace RoleBaseAuth.Client
     using System;
     using System.Net.Http;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
     using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
     using Microsoft.Extensions.DependencyInjection;
@@ -21,8 +22,8 @@ namespace RoleBaseAuth.Client
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("RoleBaseAuth.ServerAPI"));
             builder.Services.AddScoped(typeof(AccountClaimsPrincipalFactory<RemoteUserAccount>), typeof(RolesAccountClaimsPrincipalFactory));
             builder.Services.AddApiAuthorization();
-
+            builder.Services.AddAuthorizationCore(options => options.AddMarsPolicy());
             await builder.Build().RunAsync();
         }
-    }
+    } 
 }

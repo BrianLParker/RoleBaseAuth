@@ -1,0 +1,14 @@
+﻿@page "/admin"
+@attribute [Authorize(Roles = "Administrator")]
+
+<h3>Administrator Only Page</h3>
+<p>
+    This page is route protected using <code>@@attribute [Authorize(Roles = "Administrator")]</code>
+</p>
+<p>
+    Users cannot access this page by entering the Url into the browser.
+</p>
+
+@code {
+
+}

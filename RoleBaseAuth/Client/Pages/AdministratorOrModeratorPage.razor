@@ -1,0 +1,13 @@
+﻿@page "/moderator"
+@attribute [Authorize(Roles = "Administrator,Moderator")]
+<h3>Administrator or Moderator Page</h3>
+<p>
+    This page is route protected using <code>@@attribute [Authorize(Roles = "Administrator,Moderator")]</code>
+</p>
+<p>
+    Users cannot access this page by entering the Url into the browser. Note: Multiples roles can be specified.
+</p>
+
+@code {
+    
+}

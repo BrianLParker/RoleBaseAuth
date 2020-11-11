@@ -1,7 +1,37 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<h1>Roles and Claims</h1>
 
-Welcome to your new app.
+<AuthorizeView>
+    <NotAuthorized>
+        The following users and roles are seeded into the database for testing.
+        <ul>
+            <li>sally@sally.com (Administrator)</li>
+            <li>bob@bob.com (Moderator)</li>
+            <li>fred@fred.com (no roles)</li>
+            <li>abi@abi.com (multiple roles)</li>
+        </ul>
+        They all share the same password: "Passw0rd!"
+    </NotAuthorized>
+</AuthorizeView>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<AuthorizeView Roles="Administrator">
+    <hr />
+    Only Administrators can see this.<br />
+</AuthorizeView>
+<AuthorizeView Roles="Moderator">
+    <hr />
+    Only Moderators can see this.<br />
+</AuthorizeView>
+<AuthorizeView Roles="Moderator,Administrator">
+    <hr />
+    Administrators and Moderators can see this.
+</AuthorizeView>
+<AuthorizeView Roles="TenantAdmin">
+    <hr />
+    Tenant Administrators.
+</AuthorizeView>
+<AuthorizeView Policy="MarsOnlyPolicy">
+    <hr />
+    <strong>Only people from Mars can see this 👽</strong>
+</AuthorizeView>
