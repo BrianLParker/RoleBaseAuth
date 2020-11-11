@@ -1,10 +1,13 @@
 namespace RoleBaseAuth.Server
 {
+    using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
+    using IdentityModel;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.HttpsPolicy;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.ResponseCompression;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -31,15 +34,30 @@ namespace RoleBaseAuth.Server
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
-
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AdditionalUserClaimsPrincipalFactory>();
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+               .AddRoles<IdentityRole>()
+               .AddEntityFrameworkStores<ApplicationDbContext>()
+               .AddClaimsPrincipalFactory<AdditionalUserClaimsPrincipalFactory>();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
+                {
+                    const string OpenId = "openid";
+                    const string Planet = "planet";
 
-            services.AddAuthentication()
-                .AddIdentityServerJwt();
+                    options.IdentityResources[OpenId].UserClaims.Add(Planet);
+                    options.ApiResources.Single().UserClaims.Add(Planet);
+
+                    options.IdentityResources[OpenId].UserClaims.Add(JwtClaimTypes.Email);
+                    options.ApiResources.Single().UserClaims.Add(JwtClaimTypes.Email);
+
+                    options.IdentityResources[OpenId].UserClaims.Add(JwtClaimTypes.Role);
+                    options.ApiResources.Single().UserClaims.Add(JwtClaimTypes.Role);
+                });
+
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove(JwtClaimTypes.Role);
+            services.AddAuthentication().AddIdentityServerJwt();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
