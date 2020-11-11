@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30709.64
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoleBaseAuth.Server", "RoleBaseAuth\Server\RoleBaseAuth.Server.csproj", "{BF48BC8C-210E-4B82-B7E2-A794A6795A24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoleBaseAuth.Client", "RoleBaseAuth\Client\RoleBaseAuth.Client.csproj", "{841CFE71-313E-407C-8DAA-2E939B570B9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoleBaseAuth.Shared", "RoleBaseAuth\Shared\RoleBaseAuth.Shared.csproj", "{4DA382A1-2A98-474C-82AA-6B8481C98353}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF48BC8C-210E-4B82-B7E2-A794A6795A24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF48BC8C-210E-4B82-B7E2-A794A6795A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF48BC8C-210E-4B82-B7E2-A794A6795A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF48BC8C-210E-4B82-B7E2-A794A6795A24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{841CFE71-313E-407C-8DAA-2E939B570B9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{841CFE71-313E-407C-8DAA-2E939B570B9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{841CFE71-313E-407C-8DAA-2E939B570B9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{841CFE71-313E-407C-8DAA-2E939B570B9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DA382A1-2A98-474C-82AA-6B8481C98353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DA382A1-2A98-474C-82AA-6B8481C98353}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DA382A1-2A98-474C-82AA-6B8481C98353}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DA382A1-2A98-474C-82AA-6B8481C98353}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D14F8785-82B9-4AF1-B611-6D661525E718}
+	EndGlobalSection
+EndGlobal
