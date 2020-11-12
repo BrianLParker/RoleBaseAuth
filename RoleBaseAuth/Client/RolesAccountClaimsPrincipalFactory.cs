@@ -8,25 +8,25 @@
     using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
 
     // This is required because multiple roles arrive in json string array format ["",""]
-    // The demonstration will work with any user besides "abi" without this. Abi has multiple roles. 
+    // The demonstration will work with any user besides "abi" without this as Abi has multiple roles. 
     public class RolesAccountClaimsPrincipalFactory : AccountClaimsPrincipalFactory<RemoteUserAccount>
     {
         public RolesAccountClaimsPrincipalFactory(IAccessTokenProviderAccessor accessor) : base(accessor) { }
 
-        public async override ValueTask<ClaimsPrincipal> CreateUserAsync(
+        public override async ValueTask<ClaimsPrincipal> CreateUserAsync(
          RemoteUserAccount account,
          RemoteAuthenticationUserOptions options)
         {
-            var user = await base.CreateUserAsync(account, options);
+            ClaimsPrincipal user = await base.CreateUserAsync(account, options);
 
             if (user.Identity.IsAuthenticated)
             {
                 var identity = (ClaimsIdentity)user.Identity;
-                var roleClaims = identity.FindAll(identity.RoleClaimType).ToArray();
+                Claim[] roleClaims = identity.FindAll(identity.RoleClaimType).ToArray();
 
                 if (roleClaims != null && roleClaims.Any())
                 {
-                    foreach (var existingClaim in roleClaims)
+                    foreach (Claim existingClaim in roleClaims)
                     {
                         identity.RemoveClaim(existingClaim);
                     }
@@ -37,7 +37,7 @@
                     {
                         if (roles.ValueKind == JsonValueKind.Array)
                         {
-                            foreach (var role in roles.EnumerateArray())
+                            foreach (JsonElement role in roles.EnumerateArray())
                             {
                                 identity.AddClaim(new Claim(options.RoleClaim, role.GetString()));
                             }
@@ -49,7 +49,6 @@
                     }
                 }
             }
-
             return user;
         }
     }
