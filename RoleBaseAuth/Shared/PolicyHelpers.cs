@@ -1,4 +1,4 @@
-﻿namespace RoleBaseAuth.Client
+﻿namespace RoleBaseAuth.Shared
 {
     using Microsoft.AspNetCore.Authorization;
 
@@ -6,7 +6,7 @@
     {
         public static AuthorizationOptions AddMarsPolicy(this AuthorizationOptions options)
         {
-            options.AddPolicy("MarsOnlyPolicy", policy => policy.RequireClaim("planet","Mars"));
+            options.AddPolicy("MarsOnlyPolicy", policy => policy.RequireClaim("planet", "Mars"));
             return options;
         }
     }

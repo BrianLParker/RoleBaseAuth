@@ -6,22 +6,18 @@ namespace RoleBaseAuth.Server
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.HttpsPolicy;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.ResponseCompression;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using RoleBaseAuth.Server.Data;
     using RoleBaseAuth.Server.Models;
+    using RoleBaseAuth.Shared;
 
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
@@ -64,7 +60,7 @@ namespace RoleBaseAuth.Server
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("MarsOnlyPolicy", policy => policy.RequireClaim("planet", "Mars"));
+                options.AddMarsPolicy();
             });
         }
 

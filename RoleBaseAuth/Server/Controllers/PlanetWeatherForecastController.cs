@@ -1,10 +1,10 @@
-﻿using RoleBaseAuth.Shared;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RoleBaseAuth.Shared;
 
 namespace RoleBaseAuth.Server.Controllers
 {
@@ -20,10 +20,7 @@ namespace RoleBaseAuth.Server.Controllers
 
         private readonly ILogger<AdminWeatherForecastController> logger;
 
-        public PlanetWeatherForecastController(ILogger<AdminWeatherForecastController> logger)
-        {
-            this.logger = logger;
-        }
+        public PlanetWeatherForecastController(ILogger<AdminWeatherForecastController> logger) => this.logger = logger;
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()

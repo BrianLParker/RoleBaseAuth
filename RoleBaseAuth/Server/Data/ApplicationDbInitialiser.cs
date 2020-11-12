@@ -1,9 +1,9 @@
 ﻿namespace RoleBaseAuth.Server.Data
 {
-    using Microsoft.AspNetCore.Identity;
-    using RoleBaseAuth.Server.Models;
     using System;
     using System.Linq;
+    using Microsoft.AspNetCore.Identity;
+    using RoleBaseAuth.Server.Models;
 
     public static class ApplicationDbInitialiser
     {
@@ -16,7 +16,7 @@
         }
         public static void SeedUsers(UserManager<ApplicationUser> userManager)
         {
-            var demoUsers = new[]
+            (string name, string planet, string password, string role)[] demoUsers = new[]
             {
                 (name: "sally@sally.com", planet: "Venus", password: "Passw0rd!", role: "Administrator"),
                 (name: "bob@bob.com", planet: "Mars", password: "Passw0rd!", role: "Moderator"),
@@ -24,7 +24,7 @@
                 (name: "fred@fred.com", planet: "Earth", password: "Passw0rd!", role: "")
             };
 
-            foreach (var user in demoUsers)
+            foreach ((string name, string planet, string password, string role) user in demoUsers)
             {
                 AddUserIfNotExists(userManager, user);
             }
@@ -33,7 +33,7 @@
 
         private static void AddUserIfNotExists(UserManager<ApplicationUser> userManager, (string name, string planet, string password, string role) demoUser)
         {
-            var user = userManager.FindByNameAsync(demoUser.name).Result;
+            ApplicationUser user = userManager.FindByNameAsync(demoUser.name).Result;
             if (user == default)
             {
                 var newAppUser = new ApplicationUser

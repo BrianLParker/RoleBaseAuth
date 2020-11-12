@@ -1,8 +1,6 @@
 ﻿namespace RoleBaseAuth.Shared
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     public class WeatherForecast
     {

@@ -17,11 +17,11 @@ namespace RoleBaseAuth.Client.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            var user = authState.User;
+            AuthenticationState authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            System.Security.Claims.ClaimsPrincipal user = authState.User;
             if (user.Identity.IsAuthenticated)
             {
-                var userClaims = user.Claims.Where(claim => claim.Type.Equals(ClaimType));
+                System.Collections.Generic.IEnumerable<System.Security.Claims.Claim> userClaims = user.Claims.Where(claim => claim.Type.Equals(ClaimType));
                 Claims = userClaims.Any() ? userClaims.Select(claim => claim.Value).Aggregate(AddClaims) : "";
             }
         }

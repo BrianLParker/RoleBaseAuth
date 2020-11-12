@@ -3,10 +3,10 @@ namespace RoleBaseAuth.Client
     using System;
     using System.Net.Http;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
     using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
     using Microsoft.Extensions.DependencyInjection;
+    using RoleBaseAuth.Shared;
 
     public class Program
     {
@@ -25,5 +25,5 @@ namespace RoleBaseAuth.Client
             builder.Services.AddAuthorizationCore(options => options.AddMarsPolicy());
             await builder.Build().RunAsync();
         }
-    } 
+    }
 }
